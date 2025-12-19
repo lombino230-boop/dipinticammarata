@@ -155,7 +155,6 @@
             overflow: hidden;
         }
 
-        /* Iframe Player - METODO PIÙ AFFIDABILE */
         .video-wrapper iframe {
             position: absolute;
             top: 0;
@@ -176,65 +175,55 @@
             display: none;
         }
 
-        /* Poster Overlay - mostrato prima del caricamento */
-        .player-poster-overlay {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* --- STILI NUOVI PER IL FRAME SKYLINE --- */
+        .player-poster {
             position: absolute;
-            height: 100%;
-            width: 100%;
-            z-index: 998;
             top: 0;
             left: 0;
-            background-color: #000;
+            width: 100%;
+            height: 100%;
             background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
-            background-position: 50% 50%;
             cursor: pointer;
+            z-index: 998;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             transition: opacity 0.5s ease;
         }
 
-        .player-poster-overlay.hidden {
+        .player-poster.hidden {
             opacity: 0;
             pointer-events: none;
             z-index: -1;
         }
 
-        .player-poster-overlay:hover .play-wrapper {
-            opacity: 1;
+        .player-poster:hover .play-wrapper {
             transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .play-wrapper {
-            width: 100px;
-            height: 100px;
-            opacity: 0.85;
-            transition: all 0.3s ease;
-            background: rgba(212, 175, 55, 0.9);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        .play-wrapper svg {
-            height: 40%;
-            width: 40%;
-            margin-left: 8px;
+        .poster-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px; /* Per centrare visivamente il triangolo */
         }
-
-        .play-wrapper svg path {
-            fill: #1a1a1a;
-        }
-
-        .poster-text {
-            margin-top: 20px;
-            font-size: 1.1rem;
-            color: var(--gold);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        
+        .poster-icon path {
+            fill: #000;
         }
 
         /* Live Badge */
@@ -255,6 +244,7 @@
             z-index: 999;
             text-transform: uppercase;
             letter-spacing: 1px;
+            pointer-events: none; /* Lascia cliccare il poster sotto */
         }
 
         .player-live-badge .badge-dot {
@@ -570,8 +560,8 @@
             }
 
             .play-wrapper {
-                width: 70px;
-                height: 70px;
+                width: 60px;
+                height: 60px;
             }
 
             .player-live-badge {
@@ -636,23 +626,20 @@
                     </a>
                 </div>
 
-                <!-- Poster Overlay - Click to Play -->
-                <div class="player-poster-overlay" 
-                     id="poster-overlay"
-                     style="background-image: url('https://cdn.skylinewebcams.com/_1522.jpg');">
-                    
-                    <div class="play-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="poster-icon">
+                <!-- NUOVO PLAYER POSTER FRAME (Skyline Style) -->
+                <!-- Nota: Ho aggiunto id="poster-overlay" per far funzionare il JavaScript -->
+                <div class="player-poster clickable" id="poster-overlay" data-poster="" style="background-image: url('https://cdn.skylinewebcams.com/_1522.webp');">
+                    <div class="play-wrapper" data-poster="">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-poster="" class="poster-icon">
                             <path fill="#010101" d="M1.425.35L14.575 8l-13.15 7.65V.35z"></path>
                         </svg>
                     </div>
-                    <p class="poster-text">Clicca per avviare la diretta</p>
                 </div>
 
                 <!-- Video nativo (per HLS.js) -->
                 <video id="live-video" 
                        playsinline 
-                       poster="https://cdn.skylinewebcams.com/_1522.jpg"
+                       poster="https://cdn.skylinewebcams.com/_1522.webp"
                        controls></video>
 
             </div>
@@ -763,7 +750,8 @@
             webcamId: '1522',
             embedUrl: 'https://www.skylinewebcams.com/webcam.html?id=1522',
             directUrl: 'https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html',
-            posterUrl: 'https://cdn.skylinewebcams.com/_1522.jpg',
+            // Aggiornato a .webp come da richiesta
+            posterUrl: 'https://cdn.skylinewebcams.com/_1522.webp',
             // Lista di possibili stream URL (cambia periodicamente)
             streamUrls: [
                 'https://hd-auth.skylinewebcams.com/live.m3u8?a=1522',
