@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- HLS.js per lo streaming -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
     <style>
         :root {
             --primary-color: #8B0000;
@@ -162,68 +159,7 @@
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        /* Video Player Native */
-        #live-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        /* --- STILI NUOVI PER IL FRAME SKYLINE --- */
-        .player-poster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            z-index: 998;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease;
-        }
-
-        .player-poster.hidden {
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .player-poster:hover .play-wrapper {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .play-wrapper {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .poster-icon {
-            width: 30px;
-            height: 30px;
-            margin-left: 5px; /* Per centrare visivamente il triangolo */
-        }
-        
-        .poster-icon path {
-            fill: #000;
+            z-index: 10;
         }
 
         /* Live Badge */
@@ -244,7 +180,6 @@
             z-index: 999;
             text-transform: uppercase;
             letter-spacing: 1px;
-            pointer-events: none; /* Lascia cliccare il poster sotto */
         }
 
         .player-live-badge .badge-dot {
@@ -261,15 +196,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 997;
-            display: none;
+            z-index: 5;
+            display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
         }
 
-        .loading-spinner.active {
-            display: flex;
+        .loading-spinner.hidden {
+            display: none;
         }
 
         .spinner {
@@ -288,47 +223,6 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        /* Error Message */
-        .error-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            padding: 20px;
-            display: none;
-            z-index: 996;
-        }
-
-        .error-message.active {
-            display: block;
-        }
-
-        .error-message i {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .error-message p {
-            margin-bottom: 15px;
-        }
-
-        .error-message .btn {
-            display: inline-block;
-            padding: 10px 25px;
-            background: var(--gold);
-            color: #1a1a1a;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-
-        .error-message .btn:hover {
-            transform: scale(1.05);
         }
 
         .video-info {
@@ -373,30 +267,6 @@
 
         .credits a:hover {
             text-decoration: underline;
-        }
-
-        /* Player Mode Toggle */
-        .player-mode-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .mode-btn {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-
-        .mode-btn:hover, .mode-btn.active {
-            background: var(--gold);
-            color: #1a1a1a;
         }
 
         /* CTA */
@@ -559,11 +429,6 @@
                 text-align: center;
             }
 
-            .play-wrapper {
-                width: 60px;
-                height: 60px;
-            }
-
             .player-live-badge {
                 top: 10px;
                 left: 10px;
@@ -610,37 +475,13 @@
                     LIVE
                 </div>
 
-                <!-- Loading Spinner -->
+                <!-- Loading Spinner (visibile inizialmente) -->
                 <div class="loading-spinner" id="loading-spinner">
                     <div class="spinner"></div>
                     <span class="loading-text">Connessione in corso...</span>
                 </div>
 
-                <!-- Error Message -->
-                <div class="error-message" id="error-message">
-                    <i class="fas fa-video-slash"></i>
-                    <p>Impossibile caricare lo streaming</p>
-                    <a href="https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" 
-                       target="_blank" class="btn">
-                        <i class="fas fa-external-link-alt"></i> Guarda su SkylineWebcams
-                    </a>
-                </div>
-
-                <!-- NUOVO PLAYER POSTER FRAME (Skyline Style) -->
-                <!-- Nota: Ho aggiunto id="poster-overlay" per far funzionare il JavaScript -->
-                <div class="player-poster clickable" id="poster-overlay" data-poster="" style="background-image: url('https://cdn.skylinewebcams.com/_1522.webp');">
-                    <div class="play-wrapper" data-poster="">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-poster="" class="poster-icon">
-                            <path fill="#010101" d="M1.425.35L14.575 8l-13.15 7.65V.35z"></path>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Video nativo (per HLS.js) -->
-                <video id="live-video" 
-                       playsinline 
-                       poster="https://cdn.skylinewebcams.com/_1522.webp"
-                       controls></video>
+                <!-- L'iframe verrà inserito qui automaticamente via JavaScript -->
 
             </div>
 
@@ -653,16 +494,6 @@
                     Siracusa, Sicilia - Italia
                 </div>
             </div>
-        </div>
-
-        <!-- Toggle modalità player -->
-        <div class="player-mode-toggle">
-            <button class="mode-btn active" onclick="useEmbedMode()">
-                <i class="fas fa-code"></i> Embed Ufficiale
-            </button>
-            <button class="mode-btn" onclick="useHLSMode()">
-                <i class="fas fa-play"></i> Player HLS
-            </button>
         </div>
 
         <p class="credits">
@@ -740,248 +571,44 @@
         </div>
     </footer>
 
-    <!-- Player Script -->
+    <!-- Script: Avvio automatico dello streaming -->
     <script>
-        // ============================================
-        // CONFIGURAZIONE
-        // ============================================
-        const CONFIG = {
-            // URL della webcam SkylineWebcams (ID: 1522)
-            webcamId: '1522',
-            embedUrl: 'https://www.skylinewebcams.com/webcam.html?id=1522',
-            directUrl: 'https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html',
-            // Aggiornato a .webp come da richiesta
-            posterUrl: 'https://cdn.skylinewebcams.com/_1522.webp',
-            // Lista di possibili stream URL (cambia periodicamente)
-            streamUrls: [
-                'https://hd-auth.skylinewebcams.com/live.m3u8?a=1522',
-                'https://live1.skylinewebcams.com/1522/1522.m3u8'
-            ]
-        };
-
-        // ============================================
-        // ELEMENTI DOM
-        // ============================================
+        // Configurazione
+        const EMBED_URL = 'https://www.skylinewebcams.com/webcam.html?id=1522';
+        
+        // Elementi DOM
         const videoWrapper = document.getElementById('video-wrapper');
-        const posterOverlay = document.getElementById('poster-overlay');
         const loadingSpinner = document.getElementById('loading-spinner');
-        const errorMessage = document.getElementById('error-message');
-        const liveVideo = document.getElementById('live-video');
-        const modeButtons = document.querySelectorAll('.mode-btn');
-
-        let currentMode = 'embed'; // 'embed' o 'hls'
-        let hlsPlayer = null;
-
-        // ============================================
-        // METODO 1: IFRAME EMBED (PIÙ AFFIDABILE)
-        // ============================================
-        function useEmbedMode() {
-            currentMode = 'embed';
-            updateModeButtons();
-            resetPlayer();
-        }
-
-        function startEmbedPlayer() {
-            loadingSpinner.classList.add('active');
-            posterOverlay.classList.add('hidden');
-            
-            // Rimuovi video nativo
-            liveVideo.style.display = 'none';
-            
-            // Rimuovi iframe esistente
-            const existingIframe = videoWrapper.querySelector('iframe');
-            if (existingIframe) existingIframe.remove();
-            
-            // Crea iframe con embed ufficiale SkylineWebcams
+        
+        // Funzione per avviare lo streaming
+        function startStreaming() {
+            // Crea l'iframe
             const iframe = document.createElement('iframe');
-            iframe.src = CONFIG.embedUrl;
+            iframe.src = EMBED_URL;
             iframe.allow = 'autoplay; fullscreen';
             iframe.allowFullscreen = true;
             iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;z-index:10;';
             
+            // Quando l'iframe è caricato, nascondi lo spinner
             iframe.onload = function() {
-                loadingSpinner.classList.remove('active');
-                errorMessage.classList.remove('active');
+                loadingSpinner.classList.add('hidden');
             };
             
-            iframe.onerror = function() {
-                loadingSpinner.classList.remove('active');
-                showError();
-            };
-            
+            // Aggiungi l'iframe al wrapper
             videoWrapper.appendChild(iframe);
             
-            // Timeout di sicurezza
-            setTimeout(() => {
-                loadingSpinner.classList.remove('active');
+            // Timeout di sicurezza: nascondi spinner dopo 5 secondi comunque
+            setTimeout(function() {
+                loadingSpinner.classList.add('hidden');
             }, 5000);
         }
-
-        // ============================================
-        // METODO 2: HLS.js PLAYER (Alternativo)
-        // ============================================
-        function useHLSMode() {
-            currentMode = 'hls';
-            updateModeButtons();
-            resetPlayer();
-        }
-
-        function startHLSPlayer() {
-            loadingSpinner.classList.add('active');
-            posterOverlay.classList.add('hidden');
-            
-            // Rimuovi iframe esistente
-            const existingIframe = videoWrapper.querySelector('iframe');
-            if (existingIframe) existingIframe.remove();
-            
-            // Mostra video nativo
-            liveVideo.style.display = 'block';
-            
-            // Controlla supporto HLS
-            if (Hls.isSupported()) {
-                tryHLSStream(0);
-            } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                // Safari supporta HLS nativamente
-                liveVideo.src = CONFIG.streamUrls[0];
-                liveVideo.addEventListener('loadeddata', () => {
-                    loadingSpinner.classList.remove('active');
-                    liveVideo.play().catch(e => console.log('Autoplay bloccato'));
-                });
-                liveVideo.addEventListener('error', showError);
-            } else {
-                console.log('HLS non supportato, fallback a embed');
-                useEmbedMode();
-                startEmbedPlayer();
-            }
-        }
-
-        function tryHLSStream(urlIndex) {
-            if (urlIndex >= CONFIG.streamUrls.length) {
-                // Tutti gli URL falliti, mostra errore
-                showError();
-                return;
-            }
-            
-            // Distruggi player precedente
-            if (hlsPlayer) {
-                hlsPlayer.destroy();
-            }
-            
-            hlsPlayer = new Hls({
-                enableWorker: true,
-                lowLatencyMode: true,
-                backBufferLength: 90
-            });
-            
-            const streamUrl = CONFIG.streamUrls[urlIndex];
-            console.log('Tentativo stream:', streamUrl);
-            
-            hlsPlayer.loadSource(streamUrl);
-            hlsPlayer.attachMedia(liveVideo);
-            
-            hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
-                loadingSpinner.classList.remove('active');
-                errorMessage.classList.remove('active');
-                liveVideo.play().catch(e => {
-                    console.log('Autoplay bloccato, l\'utente deve cliccare play');
-                });
-            });
-            
-            hlsPlayer.on(Hls.Events.ERROR, function(event, data) {
-                if (data.fatal) {
-                    console.log('Errore fatale HLS:', data.type);
-                    switch (data.type) {
-                        case Hls.ErrorTypes.NETWORK_ERROR:
-                            // Prova il prossimo URL
-                            tryHLSStream(urlIndex + 1);
-                            break;
-                        case Hls.ErrorTypes.MEDIA_ERROR:
-                            hlsPlayer.recoverMediaError();
-                            break;
-                        default:
-                            showError();
-                            break;
-                    }
-                }
-            });
-            
-            // Timeout di sicurezza
-            setTimeout(() => {
-                if (loadingSpinner.classList.contains('active')) {
-                    tryHLSStream(urlIndex + 1);
-                }
-            }, 10000);
-        }
-
-        // ============================================
-        // UTILITY
-        // ============================================
-        function resetPlayer() {
-            posterOverlay.classList.remove('hidden');
-            loadingSpinner.classList.remove('active');
-            errorMessage.classList.remove('active');
-            liveVideo.style.display = 'none';
-            
-            const existingIframe = videoWrapper.querySelector('iframe');
-            if (existingIframe) existingIframe.remove();
-            
-            if (hlsPlayer) {
-                hlsPlayer.destroy();
-                hlsPlayer = null;
-            }
-        }
-
-        function showError() {
-            loadingSpinner.classList.remove('active');
-            errorMessage.classList.add('active');
-        }
-
-        function updateModeButtons() {
-            modeButtons.forEach(btn => btn.classList.remove('active'));
-            if (currentMode === 'embed') {
-                modeButtons[0].classList.add('active');
-            } else {
-                modeButtons[1].classList.add('active');
-            }
-        }
-
-        // ============================================
-        // EVENT LISTENERS
-        // ============================================
         
-        // Click sul poster per avviare
-        posterOverlay.addEventListener('click', function() {
-            if (currentMode === 'embed') {
-                startEmbedPlayer();
-            } else {
-                startHLSPlayer();
-            }
-        });
-
-        // Gestione visibilità pagina (pausa quando in background)
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState !== 'visible') {
-                if (liveVideo && !liveVideo.paused) {
-                    liveVideo.pause();
-                }
-            }
-        });
-
-        // Aggiorna poster periodicamente (la webcam aggiorna l'immagine)
-        function updatePoster() {
-            const timestamp = new Date().getTime();
-            const newPosterUrl = CONFIG.posterUrl + '?' + timestamp;
-            posterOverlay.style.backgroundImage = `url('${newPosterUrl}')`;
-            liveVideo.poster = newPosterUrl;
+        // Avvia lo streaming appena la pagina è pronta
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startStreaming);
+        } else {
+            startStreaming();
         }
-
-        // Aggiorna poster ogni 30 secondi
-        setInterval(updatePoster, 30000);
-
-        // ============================================
-        // INIZIALIZZAZIONE
-        // ============================================
-        console.log('Player inizializzato - Modalità:', currentMode);
     </script>
 
 </body>
