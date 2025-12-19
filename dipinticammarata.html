@@ -143,65 +143,199 @@
             opacity: 0.95;
         }
 
-        /* Live Stream Section */
+        /* =====================================================
+           SEZIONE WEBCAM DIRETTA - OTTIMIZZATA
+           ===================================================== */
         .live-section {
             padding: 4rem 2rem;
             text-align: center;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .section-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+        }
+
+        .live-header {
+            margin-bottom: 2rem;
         }
 
         .live-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(255, 0, 0, 0.8);
-            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            padding: 0.6rem 1.8rem;
             border-radius: 50px;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            animation: pulse-glow 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .live-badge::before {
-            content: '';
-            width: 10px;
-            height: 10px;
+        .live-dot {
+            width: 12px;
+            height: 12px;
             background: #fff;
             border-radius: 50%;
+            animation: blink 1s infinite;
         }
 
-        .webcam-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            }
+            50% { 
+                box-shadow: 0 4px 25px rgba(255, 0, 0, 0.7);
+            }
+        }
+
+        .live-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .live-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Container Webcam Principale */
+        .webcam-wrapper {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            border-radius: 24px;
             padding: 1.5rem;
-            display: inline-block;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .webcam-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+            pointer-events: none;
+            border-radius: 24px 24px 0 0;
+        }
+
+        /* Container Responsive per l'iframe */
+        .webcam-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
         }
 
         .webcam-container iframe {
-            border-radius: 12px;
-            max-width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        /* Overlay decorativo angoli */
+        .webcam-frame {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--gold);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .frame-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
+        .frame-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
+        .frame-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
+        .frame-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
+
+        /* Info sotto la webcam */
+        .webcam-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .webcam-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .webcam-info-item i {
+            color: var(--gold);
         }
 
         .skyline-credit {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         .skyline-credit a {
             color: var(--gold);
             text-decoration: none;
+            transition: opacity 0.3s ease;
         }
+
+        .skyline-credit a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Pulsante Fullscreen */
+        .fullscreen-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+
+        /* =====================================================
+           RESTO DEL SITO
+           ===================================================== */
 
         /* CTA Section */
         .cta-section {
@@ -217,6 +351,8 @@
             max-width: 500px;
             margin: 0 auto;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .cta-card:hover {
@@ -228,6 +364,10 @@
             max-width: 100%;
             border-radius: 12px;
             margin-bottom: 1rem;
+        }
+
+        .cta-card p {
+            color: var(--text-light);
         }
 
         .btn {
@@ -541,28 +681,19 @@
             .quote-box p {
                 font-size: 1.1rem;
             }
-        }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            .live-title {
+                font-size: 1.5rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .webcam-info {
+                gap: 1rem;
+            }
+
+            .webcam-info-item {
+                font-size: 0.85rem;
             }
         }
-
-        .animate {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -596,24 +727,79 @@
         </div>
     </section>
 
-    <!-- Live Stream Section -->
+    <!-- =====================================================
+         SEZIONE WEBCAM DIRETTA
+         ===================================================== -->
     <section class="live-section" id="live">
         <div class="section-container">
-            <div class="live-badge">IN DIRETTA</div>
-            <div class="webcam-container">
-                <iframe 
-                    src="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html?w=1522" 
-                    width="640" 
-                    height="360" 
-                    frameborder="0" 
-                    scrolling="no"
-                    allow="autoplay" 
-                    allowfullscreen>
-                </iframe>
+            
+            <!-- Header Diretta -->
+            <div class="live-header">
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    IN DIRETTA
+                </div>
+                <h2 class="live-title">Studio d'Arte Cammarata</h2>
+                <p class="live-subtitle">Siracusa, Sicilia - Italia</p>
             </div>
+
+            <!-- Container Webcam -->
+            <div class="webcam-wrapper">
+                <!-- Cornici decorative -->
+                <div class="webcam-frame frame-tl"></div>
+                <div class="webcam-frame frame-tr"></div>
+                <div class="webcam-frame frame-bl"></div>
+                <div class="webcam-frame frame-br"></div>
+
+                <!-- Container Responsive Iframe -->
+                <div class="webcam-container" id="webcamContainer">
+                    <iframe 
+                        id="skylineWebcam"
+                        loading="lazy"
+                        src="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html?w=1522" 
+                        frameborder="0" 
+                        scrolling="no"
+                        marginwidth="0" 
+                        marginheight="0"
+                        allow="autoplay; fullscreen" 
+                        allowfullscreen
+                        webkitallowfullscreen
+                        mozallowfullscreen>
+                    </iframe>
+                </div>
+
+                <!-- Info sotto il video -->
+                <div class="webcam-info">
+                    <div class="webcam-info-item">
+                        <i class="fas fa-video"></i>
+                        <span>Streaming Live 24/7</span>
+                    </div>
+                    <div class="webcam-info-item">
+                        <i class="fas fa-palette"></i>
+                        <span>Arte in Diretta</span>
+                    </div>
+                    <div class="webcam-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Siracusa, Italia</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pulsante Fullscreen -->
+            <button class="fullscreen-btn" onclick="openFullscreen()">
+                <i class="fas fa-expand"></i>
+                Schermo Intero
+            </button>
+
+            <!-- Credit Skyline -->
             <p class="skyline-credit">
-                Diretta trasmessa da <a href="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" target="_blank">Skyline Webcams</a>
+                <i class="fas fa-broadcast-tower"></i> 
+                Trasmesso in diretta via 
+                <a href="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" target="_blank" rel="noopener">
+                    Skyline Webcams
+                </a>
             </p>
+
         </div>
     </section>
 
@@ -773,11 +959,24 @@
     </footer>
 
     <script>
+        // Toggle Menu Mobile
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
 
-        // Smooth scroll for navigation
+        // Fullscreen per la webcam
+        function openFullscreen() {
+            const container = document.getElementById('webcamContainer');
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) {
+                container.msRequestFullscreen();
+            }
+        }
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -788,7 +987,6 @@
                         block: 'start'
                     });
                 }
-                // Close mobile menu
                 document.getElementById('navLinks').classList.remove('active');
             });
         });
