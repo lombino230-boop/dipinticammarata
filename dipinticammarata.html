@@ -105,9 +105,7 @@
             opacity: 0.9;
         }
 
-        /* =========================================
-           SEZIONE STREAMING PRINCIPALE
-           ========================================= */
+        /* Streaming Section */
         .streaming-section {
             padding: 2rem;
             max-width: 1100px;
@@ -144,7 +142,6 @@
             color: #ff4444;
         }
 
-        /* Container Video Streaming */
         .video-container {
             background: #000;
             border-radius: 16px;
@@ -155,26 +152,124 @@
             position: relative;
         }
 
-        /* Wrapper responsive 16:9 */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             background: #111;
+            overflow: hidden;
         }
 
-        /* IFRAME STREAMING SKYLINE */
-        .video-wrapper iframe {
+        .video-wrapper a {
+            display: block;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
         }
 
-        /* Info sotto il video */
+        .video-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-wrapper:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Play Overlay */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-wrapper:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .play-button i {
+            color: #1a1a1a;
+            font-size: 2rem;
+            margin-left: 5px;
+        }
+
+        .video-wrapper:hover .play-button {
+            transform: scale(1.1);
+        }
+
+        .play-text {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Live Badge */
+        .live-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .live-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        /* Timestamp */
+        .timestamp {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            z-index: 10;
+        }
+
         .video-info {
             background: rgba(0, 0, 0, 0.8);
             padding: 1rem 1.5rem;
@@ -203,12 +298,20 @@
             color: var(--gold);
         }
 
-        /* Crediti */
         .credits {
             text-align: center;
             margin-top: 1rem;
             font-size: 0.85rem;
-            opacity: 0.6;
+            opacity: 0.8;
+        }
+
+        .credits a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
         }
 
         /* CTA */
@@ -386,6 +489,15 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-button i {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -412,31 +524,40 @@
         <p>Guarda il pittore Cammarata dipingere in diretta dal suo studio</p>
     </section>
 
-    <!-- =========================================
-         STREAMING VIDEO - DIRETTA WEBCAM
-         ========================================= -->
+    <!-- STREAMING WEBCAM -->
     <section class="streaming-section" id="streaming">
         
-        <!-- Indicatore LIVE -->
         <div class="live-indicator">
             <div class="live-dot"></div>
             <span class="live-text">In Diretta Ora</span>
         </div>
 
-        <!-- Container Video -->
         <div class="video-container">
-            
-            <!-- IFRAME SKYLINE WEBCAMS - STREAMING DIRETTO -->
             <div class="video-wrapper">
-                <iframe 
-                    src="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html?w=1522"
-                    allow="autoplay; fullscreen"
-                    allowfullscreen
-                    loading="eager">
-                </iframe>
+                <a href="https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" 
+                   target="_blank" 
+                   title="Apri streaming HD">
+                    
+                    <img id="liveWebcam" 
+                         src="https://cdn.skylinewebcams.com/i/_1522.jpg" 
+                         alt="Studio d'Arte Cammarata - Live Webcam">
+                    
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <p class="play-text">Clicca per lo streaming HD</p>
+                    </div>
+                    
+                    <div class="live-badge">
+                        <span class="live-badge-dot"></span>
+                        LIVE
+                    </div>
+                    
+                    <div class="timestamp" id="timestamp"></div>
+                </a>
             </div>
 
-            <!-- Info Video -->
             <div class="video-info">
                 <div class="video-title">
                     <i class="fas fa-palette"></i> Studio d'Arte Cammarata
@@ -448,7 +569,13 @@
             </div>
         </div>
 
-        <p class="credits">Streaming 24/7 via Skyline Webcams</p>
+        <p class="credits">
+            <i class="fas fa-sync-alt fa-spin" style="margin-right: 5px;"></i>
+            Immagine aggiornata ogni 5 secondi | 
+            <a href="https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" target="_blank">
+               Apri streaming HD completo →
+            </a>
+        </p>
     </section>
 
     <!-- CTA -->
@@ -522,6 +649,28 @@
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
+
+        // === AUTO-REFRESH WEBCAM ===
+        (function() {
+            const webcamImg = document.getElementById('liveWebcam');
+            const timestampEl = document.getElementById('timestamp');
+            const baseUrl = 'https://cdn.skylinewebcams.com/i/_1522.jpg';
+            
+            function updateWebcam() {
+                const newImg = new Image();
+                newImg.onload = function() {
+                    webcamImg.src = this.src;
+                };
+                newImg.src = baseUrl + '?t=' + Date.now();
+                
+                const now = new Date();
+                timestampEl.textContent = now.toLocaleTimeString('it-IT');
+            }
+            
+            // Aggiorna ogni 5 secondi
+            setInterval(updateWebcam, 5000);
+            updateWebcam();
+        })();
     </script>
 
 </body>
