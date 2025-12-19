@@ -7,10 +7,7 @@
     <meta name="description" content="WEBCAM - Arte dal vivo Cammarata. Quadri del pittore Cammarata acquisto e commissione opere">
     <meta name="keywords" content="quadri, dipinti a olio, arte dal vivo, webcam, quadri paesaggi, pittori italiani">
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -19,7 +16,6 @@
             --primary-dark: #5c0000;
             --gold: #D4AF37;
             --gold-light: #F4D03F;
-            --cream: #FDF5E6;
             --dark: #1a1a1a;
             --text-light: #f5f5f5;
         }
@@ -28,10 +24,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
@@ -44,7 +36,7 @@
 
         /* Header */
         .header {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             position: fixed;
@@ -80,7 +72,6 @@
             text-decoration: none;
             font-weight: 300;
             transition: color 0.3s ease;
-            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
@@ -96,301 +87,163 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* Hero compatto */
         .hero {
-            padding: 8rem 2rem 4rem;
+            padding: 7rem 2rem 2rem;
             text-align: center;
-            background: url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1920&q=80') center/cover;
-            background-attachment: fixed;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(92, 0, 0, 0.85) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-        }
-
-        .hero .description {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.95;
-        }
-
-        /* =====================================================
-           SEZIONE WEBCAM DIRETTA - OTTIMIZZATA
-           ===================================================== */
-        .live-section {
-            padding: 4rem 2rem;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .section-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .live-header {
-            margin-bottom: 2rem;
-        }
-
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            padding: 0.6rem 1.8rem;
-            border-radius: 50px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-            animation: pulse-glow 2s infinite;
-        }
-
-        .live-dot {
-            width: 12px;
-            height: 12px;
-            background: #fff;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-            }
-            50% { 
-                box-shadow: 0 4px 25px rgba(255, 0, 0, 0.7);
-            }
-        }
-
-        .live-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--gold);
             margin-bottom: 0.5rem;
         }
 
-        .live-subtitle {
-            font-size: 1.1rem;
+        .hero p {
+            font-size: 1.2rem;
             opacity: 0.9;
         }
 
-        /* Container Webcam Principale */
-        .webcam-wrapper {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            position: relative;
+        /* =========================================
+           SEZIONE STREAMING PRINCIPALE
+           ========================================= */
+        .streaming-section {
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .live-dot {
+            width: 14px;
+            height: 14px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .live-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff4444;
+        }
+
+        /* Container Video Streaming */
+        .video-container {
+            background: #000;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 
+                0 0 0 3px var(--gold),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
-        .webcam-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
-            pointer-events: none;
-            border-radius: 24px 24px 0 0;
-        }
-
-        /* Container Responsive per l'iframe */
-        .webcam-container {
+        /* Wrapper responsive 16:9 */
+        .video-wrapper {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%; /* Aspect ratio 16:9 */
             height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            background: #000;
+            background: #111;
         }
 
-        .webcam-container iframe {
+        /* IFRAME STREAMING SKYLINE */
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 16px;
         }
 
-        /* Overlay decorativo angoli */
-        .webcam-frame {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid var(--gold);
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .frame-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
-        .frame-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
-        .frame-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
-        .frame-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
-
-        /* Info sotto la webcam */
-        .webcam-info {
+        /* Info sotto il video */
+        .video-info {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 1.5rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .webcam-info-item {
+        .video-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .video-location {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.95rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
-        .webcam-info-item i {
+        .video-location i {
             color: var(--gold);
         }
 
-        .skyline-credit {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            opacity: 0.7;
+        /* Crediti */
+        .credits {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.6;
         }
 
-        .skyline-credit a {
-            color: var(--gold);
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .skyline-credit a:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        /* Pulsante Fullscreen */
-        .fullscreen-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding: 0.8rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .fullscreen-btn:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
-        }
-
-        /* =====================================================
-           RESTO DEL SITO
-           ===================================================== */
-
-        /* CTA Section */
+        /* CTA */
         .cta-section {
             padding: 3rem 2rem;
             text-align: center;
         }
 
         .cta-card {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
             border: 2px solid var(--gold);
             border-radius: 20px;
             padding: 2rem;
-            max-width: 500px;
+            max-width: 450px;
             margin: 0 auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             display: block;
+            transition: transform 0.3s ease;
         }
 
         .cta-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
         }
 
         .cta-card img {
             max-width: 100%;
             border-radius: 12px;
-            margin-bottom: 1rem;
         }
 
         .cta-card p {
             color: var(--text-light);
+            margin-top: 1rem;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--dark);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Gallery Links Section */
+        /* Gallery */
         .gallery-section {
             padding: 4rem 2rem;
             background: rgba(0, 0, 0, 0.2);
@@ -398,15 +251,15 @@
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--gold);
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             max-width: 1000px;
             margin: 0 auto;
@@ -414,206 +267,66 @@
 
         .gallery-card {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             border-radius: 16px;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             text-decoration: none;
             color: var(--text-light);
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid transparent;
         }
 
         .gallery-card:hover {
             background: rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
             border-color: var(--gold);
+            transform: translateY(-5px);
         }
 
         .gallery-card i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--gold);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .gallery-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
         }
 
         .gallery-card p {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
 
-        /* Process Section */
-        .process-section {
-            padding: 4rem 2rem;
-        }
-
-        .process-intro {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-        }
-
-        .process-intro p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .process-card {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .process-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .process-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .process-card .step-number {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--gold);
-            color: var(--dark);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* Quote Section */
-        .quote-section {
-            padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .quote-box {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border-left: 4px solid var(--gold);
-        }
-
-        .quote-box p {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-style: italic;
-            line-height: 1.8;
-        }
-
-        /* Info Section */
-        .info-section {
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .info-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 16px;
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .info-card i {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .info-card h4 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Featured Work */
-        .featured-section {
-            padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .featured-image {
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            border: 3px solid var(--gold);
-        }
-
-        .featured-image img {
-            width: 100%;
-            display: block;
-        }
-
-        /* Contact Section */
+        /* Contact */
         .contact-section {
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             text-align: center;
         }
 
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.2rem 2.5rem;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
             background: #25D366;
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .whatsapp-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
         }
 
         /* Footer */
         .footer {
             background: rgba(0, 0, 0, 0.5);
-            padding: 3rem 2rem 1rem;
+            padding: 2rem;
             text-align: center;
         }
 
@@ -622,26 +335,25 @@
             justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links a {
             color: var(--text-light);
             text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            opacity: 0.7;
         }
 
         .footer-links a:hover {
-            opacity: 1;
             color: var(--gold);
+            opacity: 1;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 1rem;
-            font-size: 0.85rem;
-            opacity: 0.6;
         }
 
         /* Responsive */
@@ -654,7 +366,7 @@
                 right: 0;
                 background: rgba(0, 0, 0, 0.95);
                 flex-direction: column;
-                padding: 2rem;
+                padding: 1.5rem;
                 gap: 1rem;
             }
 
@@ -667,31 +379,12 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
                 font-size: 1.8rem;
             }
 
-            .quote-box p {
-                font-size: 1.1rem;
-            }
-
-            .live-title {
-                font-size: 1.5rem;
-            }
-
-            .webcam-info {
-                gap: 1rem;
-            }
-
-            .webcam-info-item {
-                font-size: 0.85rem;
+            .video-info {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -706,123 +399,78 @@
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#live">Diretta</a></li>
+                <li><a href="#streaming">Diretta</a></li>
                 <li><a href="#galleria">Galleria</a></li>
-                <li><a href="#processo">Come Nasce un'Opera</a></li>
                 <li><a href="#contatti">Contatti</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Arte dal Vivo</h1>
-            <p class="subtitle">Pittore in Diretta dallo Studio Cammarata</p>
-            <p class="description">
-                L'artista dipinge in diretta dal suo studio. Puoi seguire dal vivo la creazione delle sue opere 
-                e realizzare la tua collezione a prezzi accessibili!
-            </p>
-            <a href="#live" class="btn">Guarda la Diretta</a>
-        </div>
+        <h1>🎨 Arte dal Vivo</h1>
+        <p>Guarda il pittore Cammarata dipingere in diretta dal suo studio</p>
     </section>
 
-    <!-- =====================================================
-         SEZIONE WEBCAM DIRETTA
-         ===================================================== -->
-    <section class="live-section" id="live">
-        <div class="section-container">
+    <!-- =========================================
+         STREAMING VIDEO - DIRETTA WEBCAM
+         ========================================= -->
+    <section class="streaming-section" id="streaming">
+        
+        <!-- Indicatore LIVE -->
+        <div class="live-indicator">
+            <div class="live-dot"></div>
+            <span class="live-text">In Diretta Ora</span>
+        </div>
+
+        <!-- Container Video -->
+        <div class="video-container">
             
-            <!-- Header Diretta -->
-            <div class="live-header">
-                <div class="live-badge">
-                    <span class="live-dot"></span>
-                    IN DIRETTA
-                </div>
-                <h2 class="live-title">Studio d'Arte Cammarata</h2>
-                <p class="live-subtitle">Siracusa, Sicilia - Italia</p>
+            <!-- IFRAME SKYLINE WEBCAMS - STREAMING DIRETTO -->
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html?w=1522"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen
+                    loading="eager">
+                </iframe>
             </div>
 
-            <!-- Container Webcam -->
-            <div class="webcam-wrapper">
-                <!-- Cornici decorative -->
-                <div class="webcam-frame frame-tl"></div>
-                <div class="webcam-frame frame-tr"></div>
-                <div class="webcam-frame frame-bl"></div>
-                <div class="webcam-frame frame-br"></div>
-
-                <!-- Container Responsive Iframe -->
-                <div class="webcam-container" id="webcamContainer">
-                    <iframe 
-                        id="skylineWebcam"
-                        loading="lazy"
-                        src="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html?w=1522" 
-                        frameborder="0" 
-                        scrolling="no"
-                        marginwidth="0" 
-                        marginheight="0"
-                        allow="autoplay; fullscreen" 
-                        allowfullscreen
-                        webkitallowfullscreen
-                        mozallowfullscreen>
-                    </iframe>
+            <!-- Info Video -->
+            <div class="video-info">
+                <div class="video-title">
+                    <i class="fas fa-palette"></i> Studio d'Arte Cammarata
                 </div>
-
-                <!-- Info sotto il video -->
-                <div class="webcam-info">
-                    <div class="webcam-info-item">
-                        <i class="fas fa-video"></i>
-                        <span>Streaming Live 24/7</span>
-                    </div>
-                    <div class="webcam-info-item">
-                        <i class="fas fa-palette"></i>
-                        <span>Arte in Diretta</span>
-                    </div>
-                    <div class="webcam-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Siracusa, Italia</span>
-                    </div>
+                <div class="video-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Siracusa, Sicilia - Italia
                 </div>
             </div>
-
-            <!-- Pulsante Fullscreen -->
-            <button class="fullscreen-btn" onclick="openFullscreen()">
-                <i class="fas fa-expand"></i>
-                Schermo Intero
-            </button>
-
-            <!-- Credit Skyline -->
-            <p class="skyline-credit">
-                <i class="fas fa-broadcast-tower"></i> 
-                Trasmesso in diretta via 
-                <a href="https://www.skylinewebcams.com/webcam/italia/sicilia/siracusa/studio-darte-cammarata.html" target="_blank" rel="noopener">
-                    Skyline Webcams
-                </a>
-            </p>
-
         </div>
+
+        <p class="credits">Streaming 24/7 via Skyline Webcams</p>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA -->
     <section class="cta-section">
         <a href="https://www.paesaggicammarata.it/30x40" class="cta-card">
             <img src="https://www.dipinticammarata.it/offerta70.png" alt="Offerta Speciale">
-            <p>Scopri le nostre offerte esclusive</p>
+            <p>🔥 Scopri le offerte esclusive</p>
         </a>
     </section>
 
-    <!-- Gallery Section -->
+    <!-- Gallery -->
     <section class="gallery-section" id="galleria">
         <h2 class="section-title">Esplora le Collezioni</h2>
         <div class="gallery-grid">
             <a href="https://www.paesaggicammarata.it" class="gallery-card">
                 <i class="fas fa-image"></i>
-                <h3>Opere di Grandi Dimensioni</h3>
-                <p>Galleria opere in vendita</p>
+                <h3>Grandi Dimensioni</h3>
+                <p>Opere in vendita</p>
             </a>
             <a href="https://www.dipinticammarata.it/dipintisucommissione.htm" class="gallery-card">
                 <i class="fas fa-paint-brush"></i>
-                <h3>Opere su Commissione</h3>
+                <h3>Su Commissione</h3>
                 <p>Realizza il tuo sogno</p>
             </a>
             <a href="https://www.dipinticammarata.it/vendita70x50.htm" class="gallery-card">
@@ -833,112 +481,25 @@
             <a href="https://www.dipinticammarata.it/collezionisti.htm" class="gallery-card">
                 <i class="fas fa-gem"></i>
                 <h3>Collezioni Private</h3>
-                <p>Opere dei collezionisti</p>
+                <p>Dai collezionisti</p>
             </a>
             <a href="https://www.dipinticammarata.it/biografia.htm" class="gallery-card">
                 <i class="fas fa-user-tie"></i>
                 <h3>L'Artista</h3>
-                <p>Biografia, mostre e recensioni</p>
+                <p>Biografia e mostre</p>
             </a>
             <a href="https://www.dipinticammarata.it/quotazioni.htm" class="gallery-card">
                 <i class="fas fa-certificate"></i>
                 <h3>Quotazioni</h3>
-                <p>Valutazione Perito d'Arte</p>
+                <p>Valutazione opere</p>
             </a>
         </div>
     </section>
 
-    <!-- Quote Section -->
-    <section class="quote-section">
-        <div class="quote-box">
-            <p>
-                "Ogni pennellata racconta una storia. Ogni colore, un'emozione. 
-                Quando guardi il pittore Cammarata all'opera in diretta, non stai solo osservando un quadro nascere, 
-                stai partecipando a un momento unico, autentico, irripetibile."
-            </p>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section" id="processo">
-        <h2 class="section-title">Come Nasce un'Opera</h2>
-        <div class="process-intro">
-            <p>Scopri le varie fasi della creazione di un dipinto, dalla tela bianca al capolavoro finito.</p>
-        </div>
-        <div class="process-grid">
-            <div class="process-card">
-                <span class="step-number">1</span>
-                <img src="https://www.dipinticammarata.it/cn1.jpg" alt="Fase 1">
-            </div>
-            <div class="process-card">
-                <span class="step-number">2</span>
-                <img src="https://www.dipinticammarata.it/cn2.jpg" alt="Fase 2">
-            </div>
-            <div class="process-card">
-                <span class="step-number">3</span>
-                <img src="https://www.dipinticammarata.it/cn3.jpg" alt="Fase 3">
-            </div>
-            <div class="process-card">
-                <span class="step-number">4</span>
-                <img src="https://www.dipinticammarata.it/cn4.jpg" alt="Fase 4">
-            </div>
-            <div class="process-card">
-                <span class="step-number">5</span>
-                <img src="https://www.dipinticammarata.it/cn5.jpg" alt="Fase 5">
-            </div>
-            <div class="process-card">
-                <span class="step-number">6</span>
-                <img src="https://www.dipinticammarata.it/cn6.jpg" alt="Fase 6">
-            </div>
-            <div class="process-card">
-                <span class="step-number">7</span>
-                <img src="https://www.dipinticammarata.it/cn7.jpg" alt="Fase 7">
-            </div>
-            <div class="process-card">
-                <span class="step-number">8</span>
-                <img src="https://www.dipinticammarata.it/cn8.jpg" alt="Fase 8 - Opera completata">
-            </div>
-        </div>
-    </section>
-
-    <!-- Info Section -->
-    <section class="info-section">
-        <div class="info-cards">
-            <div class="info-card">
-                <i class="fas fa-signature"></i>
-                <h4>Opere Autenticate</h4>
-                <p>Ogni opera è firmata e autenticata dall'artista</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-palette"></i>
-                <h4>Bordi Dipinti</h4>
-                <p>Puoi appendere le opere anche senza cornice</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-truck"></i>
-                <h4>Pronte da Appendere</h4>
-                <p>Complete di gancio per l'installazione</p>
-            </div>
-        </div>
-        <a href="bordidipinti.htm" class="btn">Scopri i Bordi Dipinti</a>
-    </section>
-
-    <!-- Featured Section -->
-    <section class="featured-section">
-        <h2 class="section-title">Opera in Evidenza</h2>
-        <div class="featured-image">
-            <a href="https://www.dipinticammarata.it">
-                <img src="https://www.dipinticammarata.it/tramonto%20al%20mare%20n24m72-80x60.jpg" alt="Tramonto al Mare">
-            </a>
-        </div>
-        <br><br>
-        <a href="https://www.dipinticammarata.it" class="btn">Vedi Tutti i Dipinti Disponibili</a>
-    </section>
-
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section class="contact-section" id="contatti">
         <h2 class="section-title">Contattaci</h2>
-        <p style="margin-bottom: 2rem; font-size: 1.1rem;">Per informazioni e acquisti</p>
+        <p style="margin-bottom: 1.5rem;">Per informazioni e acquisti</p>
         <a href="https://wa.me/393383109350" class="whatsapp-btn">
             <i class="fab fa-whatsapp"></i>
             338 310 9350
@@ -951,55 +512,16 @@
             <a href="https://www.dipinticammarata.it">Home</a>
             <a href="https://www.paesaggicammarata.it">Galleria</a>
             <a href="https://www.dipinticammarata.it/biografia.htm">Biografia</a>
-            <a href="policy.htm">Cookie Policy</a>
         </div>
         <div class="footer-bottom">
-            <p>© 2024 Studio d'Arte Cammarata - Tutti i diritti riservati</p>
+            © 2024 Studio d'Arte Cammarata
         </div>
     </footer>
 
     <script>
-        // Toggle Menu Mobile
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
-
-        // Fullscreen per la webcam
-        function openFullscreen() {
-            const container = document.getElementById('webcamContainer');
-            if (container.requestFullscreen) {
-                container.requestFullscreen();
-            } else if (container.webkitRequestFullscreen) {
-                container.webkitRequestFullscreen();
-            } else if (container.msRequestFullscreen) {
-                container.msRequestFullscreen();
-            }
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                document.getElementById('navLinks').classList.remove('active');
-            });
-        });
-
-        // Header background on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(0, 0, 0, 0.9)';
-            } else {
-                header.style.background = 'rgba(0, 0, 0, 0.3)';
-            }
-        });
     </script>
 
 </body>
